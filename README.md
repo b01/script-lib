@@ -1,8 +1,8 @@
 # Script Lib
 
-Where I store of various shell scripts that aid me in my professional career.
+A store of various shell scripts that can aid you in your task.
 
-[generate-self-signed-cert.sh] - I use this in local development to generates certificates when developing locally to ensure nothing goes funny when using SSL for various use cases.
+[generate-self-signed-cert.sh] - In local development use it to generates certificates for containers in Docker, Kubernetes or where ever you may need it.
 
 ---
 

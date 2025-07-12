@@ -14,8 +14,11 @@ check_aws_sso_login() {
             *ExpiredToken*)
                 echo "AWS SSO token has expired. Please renew your login using 'aws sso login'."
                 ;;
+            *does not exist*)
+                echo "AWS profile credentials could not be found."
+                ;;
             *)
-                echo "AWS credentials not found or an error occurred. Please login using 'aws sso login'."
+                echo "An error occurred. Please manually login using 'aws sso login'."
                 ;;
         esac
         logged_in="no"

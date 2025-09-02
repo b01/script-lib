@@ -11,6 +11,7 @@ ${package} [options] application [arguments]
 options:
 -h, --help          show brief help
 --ca-file           specify a CA file which to append the certificate CA (default: /etc/ssl/certs/ca-certificates.crt)
+--cert-ext          file extension to use for the certificate (default: pem)
 --city              specify a city locale (default: Detroit)
 --company           specify a company (default: Acme)
 --days              number days until the certificate expires(default: 365)
@@ -41,7 +42,7 @@ if [ $? -ne 4 ]; then
 fi
 
 # Options with a colon must have a value that follows, those without are just booleans.
-LONG_OPTS=ca-file:,city:,company:,days,ec-level:,ec-type:,help,out-dir:,prefix:,sans:,skip-append-to-ca,state:
+LONG_OPTS=ca-file:,city:,company:,days,ec-level:,ec-type:,help,out-dir:,prefix:,sans:,skip-append-to-ca,state:,cert-ext:
 OPTIONS=h,v
 
 PARSED=$(getopt --options=${OPTIONS} --longoptions=${LONG_OPTS} --name "$0" -- "${@}") || exit 1
@@ -49,6 +50,7 @@ eval set -- "${PARSED}"
 
 
 ca_file='/etc/ssl/certs/ca-certificates.crt'
+cert_ext="pem"
 city='Detroit'
 company='Acme'
 days=365
@@ -72,6 +74,11 @@ while test $# -gt 0; do
             ;;
         --ca-file)
             ca_file="${2}"
+            shift 2
+            ;;
+            ;;
+        --cert-ext)
+            cert_ext="${2}"
             shift 2
             ;;
         --city)
@@ -156,7 +163,7 @@ ROOT_CA_CRT="${out_dir}/certs/${prefix}Root-CA.pem"
 
 SRV_KEY="${out_dir}/private/${prefix}server.key"
 SRV_CSR="${out_dir}/certs/${prefix}server.csr"
-SRV_CERT="${out_dir}/certs/${prefix}server.pem"
+SRV_CERT="${out_dir}/certs/${prefix}server.${cert_ext}"
 
 CA_FILE="${ca_file}"
 

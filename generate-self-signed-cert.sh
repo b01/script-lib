@@ -76,7 +76,6 @@ while test $# -gt 0; do
             ca_file="${2}"
             shift 2
             ;;
-            ;;
         --cert-ext)
             cert_ext="${2}"
             shift 2
